@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Classless</title></head>
+  <body>
+    <h1>Classless</h1>
+    <script type="module">
+      import create from '../lib/create-classless-graph-builder.js';
+      import depthFirst from '../lib/depth-first.js';
+      import k from '../lib/k.js';
+
+      const start = new Date();
+      let sum = 0;
+
+      for (let i = 0; i < 5000; i++) {
+        const builder = create();
+        const graph = builder.graph();
+
+        k((i % 100) + 1, builder);
+
+        sum += graph.size() + depthFirst(graph).length;
+      }
+      
+      console.log(`time: ${new Date - start} ms`);
+      console.log(`sum: ${sum}`);
+    </script>
+  </body>
+</html>
